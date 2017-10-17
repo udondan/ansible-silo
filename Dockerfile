@@ -31,6 +31,7 @@
 FROM grpn/ansible-silo-base:2.0.1
 
 ENV ANSIBLE_VERSION v2.4.0.0-1
+ENV FAAS_VERSION 0.6.5
 ENV SILO_IMAGE grpn/ansible-silo
 
 ADD silo /silo/
@@ -67,3 +68,6 @@ CMD []
 
 ARG v
 ENV SILO_VERSION ${v:-UNDEFINED}
+
+ADD https://github.com/openfaas/faas/releases/download/${FAAS_VERSION}/fwatchdog /usr/bin
+RUN chmod +x /usr/bin/fwatchdog

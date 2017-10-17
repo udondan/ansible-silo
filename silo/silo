@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+#
+# Entrypoint of the Docker image having the option switch.
+#
 # Copyright (c) 2017, Groupon, Inc.
 # All rights reserved.
 #
@@ -28,29 +32,65 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# This image is based on ansible-silo
-FROM grpn/ansible-silo:{{ SILO_VERSION }}
+# shellcheck disable=SC1091
+source /silo/silo_functions.sh
 
-# Define which Ansible version we want to use. Unlike the base silo image, this image has a hardcoded Ansible version:
-ENV ANSIBLE_VERSION {{ ANSIBLE_VERSION }}
+check_compatibility
 
-# Define the name of the image. We need to do this since the name is not available
-# from inside the container but we use it in some scripts.
-ENV SILO_IMAGE {{ BUNDLE_IMAGE }}
-
-# Switch to above defined Ansible version
-RUN /silo/silo  --switch "${ANSIBLE_VERSION}" silent
-
-# Override functionality
-ADD silo /silo/
-RUN rm /silo/bin/*
-ADD bin /silo/bin/
-RUN chmod +x /silo/silo
-
-# Add playbooks etc.
-ADD playbooks /home/user/playbooks
-RUN chmod -R 777 /home/user/playbooks
-
-# Set a version for your bundle. This will be shown when your bundle is called with the --info flag
-ARG v
-ENV BUNDLE_VERSION ${v}
+case "$1" in
+  "--version")
+    get_silo_info
+    ;;
+  "--install")
+    # shellcheck disable=SC1091
+    source /silo/install.sh
+    ;;
+  "--run")
+    create_runner "$@"
+    ;;
+  "--switch")
+    shift
+    switch_ansible_version "$@"
+    ;;
+  "--shell")
+    prepare_user
+    prepare_ansible
+    prepare_environment
+    prepare_ansible_lint
+    shift
+    if [[ $# -eq 0 ]]; then
+      run_as_user_with_SSH /bin/bash
+    else
+      run_as_user_with_SSH /bin/bash -c "$*"
+    fi
+    ;;
+  "--bundle")
+    bundle_create "$2"
+    ;;
+  "--help"|"")
+    cat /silo/help.txt
+    if [[ -z "$1" ]]; then
+      exit "${EX_USAGE}"
+    fi
+    ;;
+  *)
+    prepare_user
+    prepare_ansible
+    prepare_environment
+    prepare_ansible_lint
+    cd /home/user/playbooks || exit
+    if [[ -x "/silo/userspace/ansible/bin/$1" ]]; then
+      ansible_command="$1"
+      shift
+      run_as_user_with_SSH "${ansible_command}" "$@"
+    elif [[ -x "/silo/userspace/bin/$1" ]]; then
+      command="$1"
+      shift
+      run_as_user_with_SSH "${command}" "$@"
+    else
+      echo "Unknown option: $1" >&2
+      cat /silo/help.txt
+      exit "${EX_USAGE}"
+    fi
+    ;;
+esac
