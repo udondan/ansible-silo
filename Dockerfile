@@ -62,12 +62,15 @@ RUN git clone --progress https://github.com/ansible/ansible.git /silo/userspace/
 # Grant write access to the userspace sub directories
    chmod 777 /silo/userspace/bin /silo/userspace/lib
 
-ENTRYPOINT ["/silo/entrypoint"]
+# Add OpenFaaS support
+ADD https://github.com/openfaas/faas/releases/download/${FAAS_VERSION}/fwatchdog /usr/bin
+RUN chmod +x /usr/bin/fwatchdog
+ENV fprocess="/silo/silo"
+ONBUILD HEALTHCHECK --interval=5s CMD [ -e /tmp/.lock -o -n "$IS_FAAS" ] || exit 1
 
+ENTRYPOINT ["/silo/entrypoint"]
 CMD []
 
 ARG v
 ENV SILO_VERSION ${v:-UNDEFINED}
 
-ADD https://github.com/openfaas/faas/releases/download/${FAAS_VERSION}/fwatchdog /usr/bin
-RUN chmod +x /usr/bin/fwatchdog

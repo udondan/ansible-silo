@@ -37,60 +37,71 @@ source /silo/silo_functions.sh
 
 check_compatibility
 
-case "$1" in
-  "--version")
-    get_silo_info
-    ;;
-  "--install")
-    # shellcheck disable=SC1091
-    source /silo/install.sh
-    ;;
-  "--run")
-    create_runner "$@"
-    ;;
-  "--switch")
-    shift
-    switch_ansible_version "$@"
-    ;;
-  "--shell")
-    prepare_user
-    prepare_ansible
-    prepare_environment
-    prepare_ansible_lint
-    shift
-    if [[ $# -eq 0 ]]; then
-      run_as_user_with_SSH /bin/bash
-    else
-      run_as_user_with_SSH /bin/bash -c "$*"
-    fi
-    ;;
-  "--bundle")
-    bundle_create "$2"
-    ;;
-  "--help"|"")
-    cat /silo/help.txt
-    if [[ -z "$1" ]]; then
-      exit "${EX_USAGE}"
-    fi
-    ;;
-  *)
-    prepare_user
-    prepare_ansible
-    prepare_environment
-    prepare_ansible_lint
-    cd /home/user/playbooks || exit
-    if [[ -x "/silo/userspace/ansible/bin/$1" ]]; then
-      ansible_command="$1"
+run() {
+  case "$1" in
+    "--version")
+      get_silo_info
+      ;;
+    "--install")
+      # shellcheck disable=SC1091
+      source /silo/install.sh
+      ;;
+    "--run")
+      create_runner "$@"
+      ;;
+    "--switch")
       shift
-      run_as_user_with_SSH "${ansible_command}" "$@"
-    elif [[ -x "/silo/userspace/bin/$1" ]]; then
-      command="$1"
+      switch_ansible_version "$@"
+      ;;
+    "--shell")
+      prepare_user
+      prepare_ansible
+      prepare_environment
+      prepare_ansible_lint
       shift
-      run_as_user_with_SSH "${command}" "$@"
-    else
-      echo "Unknown option: $1" >&2
+      if [[ $# -eq 0 ]]; then
+        run_as_user_with_SSH /bin/bash
+      else
+        run_as_user_with_SSH /bin/bash -c "$*"
+      fi
+      ;;
+    "--bundle")
+      bundle_create "$2"
+      ;;
+    "--help"|"")
       cat /silo/help.txt
-      exit "${EX_USAGE}"
-    fi
-    ;;
-esac
+      if [[ -z "$1" ]]; then
+        exit "${EX_USAGE}"
+      fi
+      ;;
+    *)
+      prepare_user
+      prepare_ansible
+      prepare_environment
+      prepare_ansible_lint
+      cd /home/user/playbooks || exit
+      if [[ -x "/silo/userspace/ansible/bin/$1" ]]; then
+        ansible_command="$1"
+        shift
+        run_as_user_with_SSH "${ansible_command}" "$@"
+      elif [[ -x "/silo/userspace/bin/$1" ]]; then
+        command="$1"
+        shift
+        run_as_user_with_SSH "${command}" "$@"
+      else
+        echo "Unknown option: $1" >&2
+        cat /silo/help.txt
+        exit "${EX_USAGE}"
+      fi
+      ;;
+  esac
+}
+
+if [ -p /dev/stdin -a "$#" -eq 0 ]; then
+  echo "GOT PIPED DATA:"
+  cat /dev/stdin
+
+  run "$(cat /dev/stdin)"
+else
+  run "$@"
+fi

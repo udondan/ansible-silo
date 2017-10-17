@@ -128,6 +128,13 @@ link_log() {
   source="$1"
   target="/silo/log/ansible.log"
 
+  # ANSIBLE_LOG_PATH is used by Ansible to define log file location
+  export ANSIBLE_LOG_PATH="${target}"
+
+  # If the target already exist, do not proceed further
+  # The target can exist if this is invoked through faas
+  [ -e "${target}" ] && return
+
   # change to the working directory, so relative log file paths will work, e.g.
   # ./ansible.log
   cd /home/user/playbooks || exit
@@ -144,8 +151,6 @@ link_log() {
     ln -s "$(realpath "${source}")" "${target}"
   fi
 
-  # ANSIBLE_LOG_PATH is used by Ansible to define log file location
-  export ANSIBLE_LOG_PATH="${target}"
 }
 
 #######################################

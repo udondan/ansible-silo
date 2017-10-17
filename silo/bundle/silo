@@ -36,34 +36,42 @@
 # shellcheck disable=SC1091
 source /silo/silo_functions.sh
 
-case "$1" in
-  "--version")
-    get_silo_info
-    ;;
-  "--install")
-    # shellcheck disable=SC1091
-    source /silo/install.sh
-    ;;
-  "--run")
-    create_runner "$@"
-    ;;
-  "--shell")
-    prepare_user
-    prepare_ansible
-    prepare_environment
-    prepare_ansible_lint
-    shift
-    if [[ $# -eq 0 ]]; then
-      run_as_user_with_SSH /bin/bash
-    else
-      run_as_user_with_SSH /bin/bash -c "$*"
-    fi
-    ;;
-  *)
-    prepare_user
-    prepare_ansible
-    prepare_environment
-    cd /home/user/playbooks || exit
-    run_as_user_with_SSH "/silo/userspace/ansible/bin/ansible-playbook" "$@"
-    ;;
-esac
+run() {
+  case "$1" in
+    "--version")
+      get_silo_info
+      ;;
+    "--install")
+      # shellcheck disable=SC1091
+      source /silo/install.sh
+      ;;
+    "--run")
+      create_runner "$@"
+      ;;
+    "--shell")
+      prepare_user
+      prepare_ansible
+      prepare_environment
+      prepare_ansible_lint
+      shift
+      if [[ $# -eq 0 ]]; then
+        run_as_user_with_SSH /bin/bash
+      else
+        run_as_user_with_SSH /bin/bash -c "$*"
+      fi
+      ;;
+    *)
+      prepare_user
+      prepare_ansible
+      prepare_environment
+      cd /home/user/playbooks || exit
+      run_as_user_with_SSH "/silo/userspace/ansible/bin/ansible-playbook" "$@"
+      ;;
+  esac
+}
+
+if [ -p /dev/stdin ]; then
+  run "$(cat /dev/stdin)"
+else
+  run "$@"
+fi
