@@ -40,27 +40,27 @@ LABEL maintainer="Daniel Schroeder <daniel.schroeder@groupon.com>"
 
 # Add testing repo, as we need this for installing gosu
 RUN echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories &&\
-
+#
 # Install curl
     apk add --no-cache openssl\
                        ca-certificates\
                        libssh2\
                        libcurl\
                        curl\
-
+#
 # Install bash
                        ncurses-terminfo-base\
                        ncurses-terminfo\
                        ncurses-libs\
                        readline\
                        bash\
-
+#
 # Install git
                        perl\
                        expat\
                        pcre\
                        git\
-
+#
 # Install python, pip and required modules
                        gdbm\
                        libbz2\
@@ -81,23 +81,23 @@ RUN echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/
                        py2-pip\
                        py2-six\
                        sqlite-libs\
-
+#
 # Install Ansible dependencies
                        yaml\
                        gmp\
                        rsync\
-
+#
 # Install gosu, which enables us to run Ansible as the user who started the container
                        gosu@testing\
                        sudo\
-
+#
 # Install ssh
                        openssh-client\
                        openssh-sftp-server\
                        openssh\
                        sshpass &&\
-
- # Install docker command and ensure it's always executed w/ sudo
+#
+# Install docker command and ensure it's always executed w/ sudo
     curl -fL -o /tmp/docker.tgz "https://download.docker.com/linux/static/stable/x86_64/docker-17.06.0-ce.tgz" &&\
     tar -xf /tmp/docker.tgz --exclude docker/docker?* -C /tmp &&\
     mv /tmp/docker/docker /usr/local/bin/real-docker &&\
@@ -105,6 +105,6 @@ RUN echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/
     echo "#!/usr/bin/env bash" > /usr/local/bin/docker &&\
     echo 'sudo /usr/local/bin/real-docker "$@"' >> /usr/local/bin/docker &&\
     chmod +x /usr/local/bin/docker &&\
-
+#
 # Show installed APK packages and their versions (to be copied into docs)
     apk info -v | sort | sed -E 's/-([0-9])/ \1/; s/^/- /' >&2
