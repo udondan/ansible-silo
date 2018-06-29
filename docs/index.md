@@ -93,6 +93,8 @@ Silo is based on **[Alpine Linux] 3.7** and includes the following APK packages:
 - libcrypto1.0 1.0.2o-r0
 - libcurl 7.60.0-r1
 - libffi 3.2.1-r4
+- libgcrypt 1.8.3-r0
+- libgpg-error 1.27-r1
 - libintl 0.19.8.1-r1
 - libnsl 1.0.5-r2
 - libpng 1.6.34-r1
@@ -107,7 +109,9 @@ Silo is based on **[Alpine Linux] 3.7** and includes the following APK packages:
 - libxcb 1.12-r1
 - libxdmcp 1.1.2-r4
 - libxft 2.3.2-r2
+- libxml2 2.9.7-r0
 - libxrender 0.9.10-r2
+- libxslt 1.1.31-r0
 - musl 1.1.18-r3
 - musl-utils 1.1.18-r3
 - ncurses-libs 6.0_p20171125-r0
@@ -125,10 +129,24 @@ Silo is based on **[Alpine Linux] 3.7** and includes the following APK packages:
 - perl 5.26.2-r1
 - pkgconf 1.3.10-r0
 - popt 1.16-r7
-- py-netifaces 0.10.5-r3
+- py-enum34 1.1.6-r2
 - py-setuptools 33.1.1-r1
+- py2-asn1 0.4.2-r0
+- py2-asn1crypto 0.23.0-r0
+- py2-bcrypt 3.1.4-r0
+- py2-cffi 1.10.0-r0
+- py2-cparser 2.18-r0
+- py2-crypto 2.6.1-r2
+- py2-cryptography 2.0.3-r1
+- py2-idna 2.6-r0
+- py2-ipaddress 1.0.18-r1
+- py2-lxml 4.1.1-r0
+- py2-ncclient 0.5.3-r0
 - py2-netifaces 0.10.5-r3
+- py2-paramiko 2.4.0-r0
 - py2-pip 9.0.1-r1
+- py2-pynacl 1.2.0-r0
+- py2-six 1.11.0-r0
 - python2 2.7.14-r2
 - readline 7.0.003-r0
 - rsync 3.1.3-r0
@@ -143,24 +161,18 @@ Silo is based on **[Alpine Linux] 3.7** and includes the following APK packages:
 
 The following Python modules are installed via pip:
 
-- cffi 1.10.0
-- cryptography 2.0.2
+- docker 2.5.1
+- docker-compose 1.15
+- docker-py 1.10.6
 - ecdsa 0.13
-- enum34 1.1.6
 - httplib2 0.9.2
-- idna 2.5
-- ipaddress 1.0.18
 - jinja2 2.8
 - jmespath 0.9.3
 - markupsafe 0.23
 - netaddr 0.7.19
-- paramiko 1.16.0
 - pexpect 4.2.1
 - ptyprocess 0.5.2
-- pycparser 2.18
-- pycrypto 2.6.1
 - pyyaml 3.11
-- six 1.10.0
 
 ## Installation
 

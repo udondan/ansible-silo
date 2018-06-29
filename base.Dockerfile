@@ -61,15 +61,24 @@ RUN echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/
                        pcre\
                        git\
 
-# Install python
+# Install python, pip and required modules
+                       gdbm\
                        libbz2\
                        libffi\
-                       gdbm\
-                       sqlite-libs\
-                       py-netifaces\
-
-# Install pip
+                       py-enum34\
+                       py2-asn1crypto\
+                       py2-cffi\
+                       py2-cparser\
+                       py2-crypto\
+                       py2-cryptography\
+                       py2-idna\
+                       py2-ipaddress\
+                       py2-ncclient@testing\
+                       py2-netifaces\
+                       py2-paramiko\
                        py2-pip\
+                       py2-six\
+                       sqlite-libs\
 
 # Install Ansible dependencies
                        yaml\
@@ -85,60 +94,6 @@ RUN echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/
                        openssh-sftp-server\
                        openssh\
                        sshpass &&\
-
-# Install some required python modules which need compiling
-    apk add --no-cache gcc\
-                       musl\
-                       musl-dev\
-                       musl-utils\
-                       binutils-libs\
-                       binutils\
-                       isl\
-                       libgomp\
-                       libatomic\
-                       pkgconf\
-                       libgcc\
-                       mpfr3\
-                       mpc1\
-                       libstdc++\
-                       zlib-dev\
-                       python2-dev\
-                       openssl-dev\
-                       libffi-dev\
-                       libxml2-dev\
-                       libxslt-dev &&\
-
-    pip install asn1crypto==0.22.0\
-                cffi==1.10.0\
-                cryptography==2.0.2\
-                enum34==1.1.6\
-                idna==2.5\
-                ipaddress==1.0.18\
-                ncclient==0.5.3\
-                paramiko==1.16.0\
-                pycparser==2.18\
-                pycrypto==2.6.1\
-                six==1.10.0 &&\
-
-    apk del --no-cache gcc\
-                       python2-dev\
-                       musl-dev\
-                       binutils-libs\
-                       binutils\
-                       isl\
-                       libgomp\
-                       libatomic\
-                       pkgconf\
-                       libgcc\
-                       mpfr3\
-                       mpc1\
-                       libstdc++\
-                       zlib-dev\
-                       python2-dev\
-                       openssl-dev\
-                       libffi-dev\
-                       libxml2-dev\
-                       libxslt-dev &&\
 
  # Install docker command and ensure it's always executed w/ sudo
     curl -fL -o /tmp/docker.tgz "https://download.docker.com/linux/static/stable/x86_64/docker-17.06.0-ce.tgz" &&\
