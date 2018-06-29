@@ -198,6 +198,13 @@ To install `ansibe-silo` for all users you can mount `/usr/local/bin`:
 docker run --interactive --tty --rm --volume "/usr/local/bin:/silo_install_path" grpn/ansible-silo:3.0.0 --install
 ```
 
+If you're having permission issues writing directly to `/usr/local/bin` you can first install to a temporary location and then move it:
+
+```bash
+docker run --interactive --tty --rm --volume "/tmp/silo-bin:/silo_install_path" grpn/ansible-silo:3.0.0 --install
+sudo mv /tmp/silo-bin/* /usr/local/bin
+```
+
 ### Uninstall ansible-silo
 
 During installation two things happened:
