@@ -1,8 +1,8 @@
 ---
 
 rules:
-# We ignore missing -virtual options, as this currently is not possible together
-# with version pinning: https://github.com/gliderlabs/docker-alpine/issues/205
-  apkadd-missing-virtual: off
+# This test is raising a false positive when we install the sudo package per
+# apk
+  sudo_usage: off
 
 ...
