@@ -74,6 +74,7 @@ RUN echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/
 # Install Ansible dependencies
                        yaml\
                        gmp\
+                       rsync\
 
 # Install gosu, which enables us to run Ansible as the user who started the container
                        gosu@testing\

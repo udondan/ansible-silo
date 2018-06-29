@@ -79,6 +79,8 @@ Silo is based on **[Alpine Linux] 3.7** and includes the following APK packages:
 - git 2.15.2-r0
 - gmp 6.1.2-r1
 - gosu 1.9-r0
+- libacl 2.2.52-r3
+- libattr 2.4.47-r6
 - libbz2 1.0.6-r6
 - libc-utils 0.7.1-r0
 - libcrypto1.0 1.0.2o-r0
@@ -104,12 +106,14 @@ Silo is based on **[Alpine Linux] 3.7** and includes the following APK packages:
 - pcre2 10.30-r0
 - perl 5.26.2-r1
 - pkgconf 1.3.10-r0
+- popt 1.16-r7
 - py-netifaces 0.10.5-r3
 - py-setuptools 33.1.1-r1
 - py2-netifaces 0.10.5-r3
 - py2-pip 9.0.1-r1
 - python2 2.7.14-r2
 - readline 7.0.003-r0
+- rsync 3.1.3-r0
 - scanelf 1.2.2-r1
 - sqlite-libs 3.21.0-r1
 - sshpass 1.06-r0
