@@ -558,6 +558,8 @@ Ansible Silo uses [SemVer]. Since Ansible Silo is the promise of a stable enviro
 * Updates Alpine Linux from 3.6 to 3.7 - as well uses latest apk’s.
 * Updates default Ansible version to 2.6.0.
 * Updates `ansible-lint` to 3.4.23.
+* Adds `rsync`, required by Ansibles `synchronize` module.
+* Adds Python modules `bcrypt` and `napalm`.
 
 ### v2.2.0 (Jun 8, 2018)
 
