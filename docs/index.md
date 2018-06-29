@@ -141,6 +141,7 @@ Silo is based on **[Alpine Linux] 3.7** and includes the following APK packages:
 - py2-idna 2.6-r0
 - py2-ipaddress 1.0.18-r1
 - py2-lxml 4.1.1-r0
+- py2-napalm 2.2.0-r0
 - py2-ncclient 0.5.3-r0
 - py2-netifaces 0.10.5-r3
 - py2-paramiko 2.4.0-r0

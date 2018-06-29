@@ -67,12 +67,14 @@ RUN echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/
                        libffi\
                        py-enum34\
                        py2-asn1crypto\
+                       py2-bcrypt\
                        py2-cffi\
                        py2-cparser\
                        py2-crypto\
                        py2-cryptography\
                        py2-idna\
                        py2-ipaddress\
+                       py2-napalm@testing\
                        py2-ncclient@testing\
                        py2-netifaces\
                        py2-paramiko\
