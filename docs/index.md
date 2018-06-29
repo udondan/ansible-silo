@@ -65,54 +65,57 @@ A new bundle can easily be created by calling Silo with `--bundle <bundle name>`
 
 ## Included software
 
-Silo is based on **[Alpine Linux] 3.6** and includes the following APK packages:
+Silo is based on **[Alpine Linux] 3.7** and includes the following APK packages:
 
-- alpine-baselayout 3.0.4-r0
+- alpine-baselayout 3.0.5-r2
 - alpine-keys 2.1-r1
-- apk-tools 2.7.5-r0
-- bash 4.3.48-r1
-- busybox 1.26.2-r9
-- ca-certificates 20161130-r2
+- apk-tools 2.8.2-r0
+- bash 4.4.19-r1
+- busybox 1.27.2-r7
+- ca-certificates 20171114-r0
 - curl 7.60.0-r1
-- expat 2.2.0-r1
-- gdbm 1.12-r0
-- git 2.13.7-r0
-- gmp 6.1.2-r0
+- expat 2.2.5-r0
+- gdbm 1.13-r1
+- git 2.15.2-r0
+- gmp 6.1.2-r1
 - gosu 1.9-r0
-- libbz2 1.0.6-r5
+- libbz2 1.0.6-r6
 - libc-utils 0.7.1-r0
 - libcrypto1.0 1.0.2o-r0
 - libcurl 7.60.0-r1
-- libffi 3.2.1-r3
-- libressl2.5-libcrypto 2.5.5-r0
-- libressl2.5-libssl 2.5.5-r0
-- libssh2 1.8.0-r1
+- libffi 3.2.1-r4
+- libressl2.6-libcrypto 2.6.3-r0
+- libressl2.6-libssl 2.6.3-r0
+- libssh2 1.8.0-r2
 - libssl1.0 1.0.2o-r0
-- musl 1.1.16-r14
-- musl-utils 1.1.16-r14
+- musl 1.1.18-r3
+- musl-utils 1.1.18-r3
 - ncurses-libs 6.0_p20171125-r0
 - ncurses-terminfo 6.0_p20171125-r0
 - ncurses-terminfo-base 6.0_p20171125-r0
-- openssh 7.5_p1-r2
-- openssh-client 7.5_p1-r2
-- openssh-keygen 7.5_p1-r2
-- openssh-server 7.5_p1-r2
-- openssh-sftp-server 7.5_p1-r2
+- openssh 7.5_p1-r8
+- openssh-client 7.5_p1-r8
+- openssh-keygen 7.5_p1-r8
+- openssh-server 7.5_p1-r8
+- openssh-server-common 7.5_p1-r8
+- openssh-sftp-server 7.5_p1-r8
 - openssl 1.0.2o-r0
-- pcre 8.41-r0
-- perl 5.24.4-r0
+- pcre 8.41-r1
+- pcre2 10.30-r0
+- perl 5.26.2-r1
+- pkgconf 1.3.10-r0
 - py-netifaces 0.10.5-r3
 - py-setuptools 33.1.1-r1
 - py2-netifaces 0.10.5-r3
 - py2-pip 9.0.1-r1
-- python2 2.7.14-r0
-- readline 6.3.008-r5
-- scanelf 1.2.2-r0
-- sqlite-libs 3.20.1-r2
+- python2 2.7.14-r2
+- readline 7.0.003-r0
+- scanelf 1.2.2-r1
+- sqlite-libs 3.21.0-r1
 - sshpass 1.06-r0
-- sudo 1.8.19_p2-r0
+- sudo 1.8.21_p2-r1
 - yaml 0.1.7-r0
-- zlib 1.2.11-r0
+- zlib 1.2.11-r1
 
 The following Python modules are installed via pip:
 
@@ -515,8 +518,9 @@ Ansible Silo uses [SemVer]. Since Ansible Silo is the promise of a stable enviro
 
 ### v3.0.0 (in progress)
 
-* Updates default Ansible version to 2.6.0
-* Updates `ansible-lint` to 3.4.23
+* Updates Alpine Linux from 3.6 to 3.7 - as well uses latest apk’s.
+* Updates default Ansible version to 2.6.0.
+* Updates `ansible-lint` to 3.4.23.
 
 ### v2.2.0 (Jun 8, 2018)
 
