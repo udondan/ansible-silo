@@ -4,7 +4,7 @@ asciinema: true
 ---
 
 [![GitHub release](https://img.shields.io/github/tag/groupon/ansible-silo.svg?style=flat&colorB=4183C4&label=Latest%20release)](https://github.com/groupon/ansible-silo/releases/latest)
-[![Commits since v2.2.0](https://img.shields.io/github/commits-since/groupon/ansible-silo/v2.2.0.svg?style=flat&colorB=4183C4&label=Commits%20since%20v2.2.0)](https://github.com/groupon/ansible-silo/commits/master)
+[![Commits since v3.0.0](https://img.shields.io/github/commits-since/groupon/ansible-silo/v3.0.0.svg?style=flat&colorB=4183C4&label=Commits%20since%20v3.0.0)](https://github.com/groupon/ansible-silo/commits/master)
 [![GitHub Stars](https://img.shields.io/github/stars/groupon/ansible-silo.svg?style=flat&colorB=4183C4&label=GitHub%20Stars)](https://github.com/groupon/ansible-silo/stargazers)
 [![Build Status](https://img.shields.io/travis/groupon/ansible-silo.svg?style=flat&label=Tests)](https://travis-ci.org/groupon/ansible-silo)
 [![Docker Build Status](https://img.shields.io/docker/build/grpn/ansible-silo.svg?style=flat&label=Build)](https://hub.docker.com/r/grpn/ansible-silo/builds/)
@@ -135,7 +135,7 @@ You need to be on a system where you have installed Docker (minimum version 1.9)
 To install the `ansible-silo` executable along with Ansible replacements run:
 
 ```bash
-docker run --interactive --tty --rm --volume "$HOME/bin:/silo_install_path" grpn/ansible-silo:2.2.0 --install
+docker run --interactive --tty --rm --volume "$HOME/bin:/silo_install_path" grpn/ansible-silo:3.0.0 --install
 ```
 
 This command mounts your `~/bin` directory so Silo can place its executables there. Select any location you like but make sure it is in your `$PATH`.
@@ -143,7 +143,7 @@ This command mounts your `~/bin` directory so Silo can place its executables the
 To install `ansibe-silo` for all users you can mount `/usr/local/bin`:
 
 ```bash
-docker run --interactive --tty --rm --volume "/usr/local/bin:/silo_install_path" grpn/ansible-silo:2.2.0 --install
+docker run --interactive --tty --rm --volume "/usr/local/bin:/silo_install_path" grpn/ansible-silo:3.0.0 --install
 ```
 
 ### Uninstall ansible-silo
@@ -192,9 +192,9 @@ rm -rf /tmp/ansible
 Silo will by default run the latest installed version of itself. You also can run any other version of Silo by simply passing in the version:
 
 ```bash
-SILO_VERSION=1.2.2 ansible-silo --version
-ansible-silo 1.2.2
-ansible 2.3.0.0
+SILO_VERSION=2.0.4 ansible-silo --version
+ansible-silo 2.0.4
+ansible 2.6.0
 ansible-lint 3.4.20
 ansible installed on volume silo.some.user
 ```
@@ -283,9 +283,9 @@ Which will show something along these lines:
 
     Runner file already exists.
 
-    Executing: /tmp/ansible-silo-runner-2.2.0 "--shell" "exit"
+    Executing: /tmp/ansible-silo-runner-3.0.0 "--shell" "exit"
 
-    Executing: /usr/bin/docker run --interactive --tty --rm --volume "/home/daniel.schroeder/ansible-silo:/home/user/playbooks" --volume "silo.some.user:/silo/userspace" --env "SILO_VOLUME=silo.some.user" --hostname "silo.example.com" --volume /var/run/docker.sock:/var/run/docker.sock --privileged  --volume "/home/some.user/.ssh:/home/user/._ssh" --volume "/tmp/ssh-6k3r1bCpCi":"/tmp/ssh-6k3r1bCpCi" --env SSH_AUTH_SOCK --env USER_NAME="some.user" --env USER_ID="1234" "grpn/ansible-silo:2.2.0" "--shell" "exit"
+    Executing: /usr/bin/docker run --interactive --tty --rm --volume "/home/daniel.schroeder/ansible-silo:/home/user/playbooks" --volume "silo.some.user:/silo/userspace" --env "SILO_VOLUME=silo.some.user" --hostname "silo.example.com" --volume /var/run/docker.sock:/var/run/docker.sock --privileged  --volume "/home/some.user/.ssh:/home/user/._ssh" --volume "/tmp/ssh-6k3r1bCpCi":"/tmp/ssh-6k3r1bCpCi" --env SSH_AUTH_SOCK --env USER_NAME="some.user" --env USER_ID="1234" "grpn/ansible-silo:3.0.0" "--shell" "exit"
 
 The first _Executing_ line shows the location of the generated runner script. The last line shows the Docker command executed by the runner script.
 
@@ -324,9 +324,9 @@ Specifies the name of the used Silo volume. This defaults to the name of the cur
 
 ```bash
 $ ansible-silo --version
-ansible-silo 2.2.0
-ansible 2.4.2.0
-ansible-lint 3.4.20
+ansible-silo 3.0.0
+ansible 2.6.0
+ansible-lint 3.4.23
 ansible installed on volume silo.some.user
 ```
 
@@ -366,7 +366,7 @@ You can log into the running Silo container by calling Silo with the `--shell` o
 
 ```bash
 $ ansible-silo --shell
-[ansible-silo 2.2.0|~/playbooks]$
+[ansible-silo 2.6.0|~/playbooks]$
 ```
 
 All arguments after the `--shell` option will be directly executed.
@@ -388,22 +388,22 @@ Successfully installed pbr
 
 You can run multiple Ansible versions in parallel by installing Ansible in different volumes. By default, Silo will use the volume `silo.<username>`, e.g. `silo.some.user`.
 
-The name of the volume can be changed by passing the environment variable `SILO_VOLUME`. The volume name will be prepended with `silo.` and automatically be created if it does not exist. It will contain Ansible 2.4.2.0, the latest version as of writing this document. To change the Ansible version in that volume run the switch command:
+The name of the volume can be changed by passing the environment variable `SILO_VOLUME`. The volume name will be prepended with `silo.` and automatically be created if it does not exist. It will contain Ansible 2.6.0, the latest version as of writing this document. To change the Ansible version in that volume run the switch command:
 
 ```bash
 $ SILO_VOLUME="1.9.6" ansible-silo --switch v1.9.6-1
 Switched to Ansible 1.9.6
 
 $ ansible-silo --version
-ansible-silo 2.2.0
-ansible 2.4.2.0
-ansible-lint 3.4.20
+ansible-silo 3.0.0
+ansible 2.6.0
+ansible-lint 3.4.23
 ansible installed on volume silo.1.9.6
 
 $ SILO_VOLUME="1.9.6" ansible-silo --version
-ansible-silo 2.2.0
+ansible-silo 3.0.0
 ansible 1.9.6
-ansible-lint 3.4.20
+ansible-lint 3.4.23
 ansible installed on volume silo.1.9.6
 ```
 
@@ -500,6 +500,11 @@ You can see the actual generated and executed `docker run` commands and all defi
 Ansible Silo uses [SemVer]. Since Ansible Silo is the promise of a stable environment, we consider the smallest update of any contained dependency to be a potential breaking change and indicate such change by incrementing the major version number.
 
 ## Version history
+
+### v3.0.0 (in progress)
+
+* Updates default Ansible version to 2.6.0
+* Updates `ansible-lint` to 3.4.23
 
 ### v2.2.0 (Jun 8, 2018)
 
