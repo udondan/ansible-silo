@@ -67,61 +67,73 @@ A new bundle can easily be created by calling Silo with `--bundle <bundle name>`
 
 Silo is based on **[Alpine Linux] 3.6** and includes the following APK packages:
 
- - bash 4.3.48-r1
- - ca-certificates 20161130-r2
- - curl 7.55.0-r0
- - expat 2.2.0-r1
- - gdbm 1.12-r0
- - git 2.13.5-r0
- - gmp 6.1.2-r0
- - gosu 1.9-r0
- - libbz2 1.0.6-r5
- - libcurl 7.55.0-r0
- - libffi 3.2.1-r3
- - libxml2 2.9.4-r4
- - libxslt 1.1.29-r3
- - libssh2 1.8.0-r1
- - ncurses-libs 6.0-r8
- - ncurses-terminfo 6.0-r8
- - ncurses-terminfo-base 6.0-r8
- - musl 1.1.16-r13
- - musl-utils 1.1.16-r13
- - openssh 7.5_p1-r1
- - openssh-client 7.5_p1-r1
- - openssh-sftp-server 7.5_p1-r1
- - openssl 1.0.2k-r0
- - pcre 8.41-r0
- - perl 5.24.1-r2
- - py-netifaces 0.10.5-r3
- - py2-pip 9.0.1-r1
- - readline 6.3.008-r5
- - sqlite-libs 3.18.0-r0
- - sshpass 1.06-r0
- - sudo 1.8.19_p2-r0
- - yaml 0.1.7-r0
-
+- alpine-baselayout 3.0.4-r0
+- alpine-keys 2.1-r1
+- apk-tools 2.7.5-r0
+- bash 4.3.48-r1
+- busybox 1.26.2-r9
+- ca-certificates 20161130-r2
+- curl 7.60.0-r1
+- expat 2.2.0-r1
+- gdbm 1.12-r0
+- git 2.13.7-r0
+- gmp 6.1.2-r0
+- gosu 1.9-r0
+- libbz2 1.0.6-r5
+- libc-utils 0.7.1-r0
+- libcrypto1.0 1.0.2o-r0
+- libcurl 7.60.0-r1
+- libffi 3.2.1-r3
+- libressl2.5-libcrypto 2.5.5-r0
+- libressl2.5-libssl 2.5.5-r0
+- libssh2 1.8.0-r1
+- libssl1.0 1.0.2o-r0
+- musl 1.1.16-r14
+- musl-utils 1.1.16-r14
+- ncurses-libs 6.0_p20171125-r0
+- ncurses-terminfo 6.0_p20171125-r0
+- ncurses-terminfo-base 6.0_p20171125-r0
+- openssh 7.5_p1-r2
+- openssh-client 7.5_p1-r2
+- openssh-keygen 7.5_p1-r2
+- openssh-server 7.5_p1-r2
+- openssh-sftp-server 7.5_p1-r2
+- openssl 1.0.2o-r0
+- pcre 8.41-r0
+- perl 5.24.4-r0
+- py-netifaces 0.10.5-r3
+- py-setuptools 33.1.1-r1
+- py2-netifaces 0.10.5-r3
+- py2-pip 9.0.1-r1
+- python2 2.7.14-r0
+- readline 6.3.008-r5
+- scanelf 1.2.2-r0
+- sqlite-libs 3.20.1-r2
+- sshpass 1.06-r0
+- sudo 1.8.19_p2-r0
+- yaml 0.1.7-r0
+- zlib 1.2.11-r0
 
 The following Python modules are installed via pip:
 
- - cffi 1.10.0
- - cryptography 2.0.2
- - ecdsa 0.13
- - enum34 1.1.6
- - httplib2 0.9.2
- - idna 2.5
- - ipaddress 1.0.18
- - jinja2 2.8
- - jmespath 0.9.3
- - markupsafe 0.23
- - netaddr 0.7.19
- - paramiko 1.16.0
- - pexpect 4.2.1
- - ptyprocess 0.5.2
- - pycparser 2.18
- - pycrypto 2.6.1
- - pyyaml 3.11
- - six 1.10.0
-
+- cffi 1.10.0
+- cryptography 2.0.2
+- ecdsa 0.13
+- enum34 1.1.6
+- httplib2 0.9.2
+- idna 2.5
+- ipaddress 1.0.18
+- jinja2 2.8
+- jmespath 0.9.3
+- markupsafe 0.23
+- netaddr 0.7.19
+- paramiko 1.16.0
+- pexpect 4.2.1
+- ptyprocess 0.5.2
+- pycparser 2.18
+- pycrypto 2.6.1
+- pyyaml 3.11
+- six 1.10.0
 
 ## Installation
 
