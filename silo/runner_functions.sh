@@ -163,7 +163,8 @@ _silo_var_forwarding() {
     "OLDPWD" "OSTYPE" "PATH" "SILO_"* "PWD" "return" "SHELL" "SSH_"* "TERM"
     "TMPDIR" "UID" "USER" "var" "var_filter" "var_filter_item" "XDG_"* "EX_"*
     "GIT_"*)
-  for var in $( (set -o posix; set) | grep = | cut -d '=' -f 1 ); do
+  for var in $( (set -o posix; set | sed -e :a -e '/\\$/N; s/\\\n//; ta') \
+      | grep = | cut -d '=' -f 1 ); do
     for var_filter_item in "${var_filter[@]}"; do
       # shellcheck disable=SC2053
       if [[ "${var}" == ${var_filter_item} ]]; then
@@ -219,7 +220,7 @@ _silo_mount_playbooks() {
 }
 
 #######################################
-# Checks if a log file is configured per environemnt var or inside ansible.cfg.
+# Checks if a log file is configured per environment var or inside ansible.cfg.
 # If a file is configured it will be mounted into the container.
 # Globals:
 #   ANSIBLE_LOG_PATH
