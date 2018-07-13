@@ -65,21 +65,11 @@ RUN echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/
                        gdbm\
                        libbz2\
                        libffi\
-                       py-enum34\
-                       py2-asn1crypto\
-                       py2-bcrypt\
-                       py2-cffi\
-                       py2-cparser\
-                       py2-crypto\
-                       py2-cryptography\
-                       py2-idna\
-                       py2-ipaddress\
+                       libxml2\
+                       libxslt\
                        py2-napalm@testing\
-                       py2-ncclient@testing\
                        py2-netifaces\
-                       py2-paramiko\
                        py2-pip\
-                       py2-six\
                        sqlite-libs\
 #
 # Install Ansible dependencies
@@ -96,6 +86,32 @@ RUN echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/
                        openssh-sftp-server\
                        openssh\
                        sshpass &&\
+#
+# Install some required python modules which need compiling
+    apk add --no-cache --virtual .build-deps binutils\
+                                             gcc\
+                                             libc-dev\
+                                             libffi-dev\
+                                             libxml2-dev\
+                                             libxslt-dev\
+                                             make \
+                                             openssl-dev &&\
+#
+# Install Python modules which require compiling
+    pip install asn1crypto==0.22.0\
+                cffi==1.10.0\
+                cryptography==2.0.2\
+                enum34==1.1.6\
+                idna==2.5\
+                ipaddress==1.0.18\
+                ncclient==0.5.3\
+                paramiko==2.4.1\
+                pycparser==2.18\
+                pycrypto==2.6.1\
+                six==1.10.0 &&\
+#
+# Remove build dependencies
+    apk del --no-cache .build-deps &&\
 #
 # Install docker command and ensure it's always executed w/ sudo
     curl -fL -o /tmp/docker.tgz "https://download.docker.com/linux/static/stable/x86_64/docker-17.06.0-ce.tgz" &&\

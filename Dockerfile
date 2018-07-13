@@ -30,7 +30,7 @@
 
 FROM grpn/ansible-silo-base:3.0.0
 
-ENV ANSIBLE_VERSION v2.6.0
+ENV ANSIBLE_VERSION v2.4.2.0-1
 ENV ANSIBLE_LINT_VERSION 3.4.23
 ENV SILO_IMAGE grpn/ansible-silo
 
@@ -62,7 +62,15 @@ RUN git clone --progress https://github.com/ansible/ansible.git /silo/userspace/
     chmod 777 /silo/userspace/bin /silo/userspace/lib /silo/userspace/lib/python2.7/site-packages &&\
 #
 # Install ansible-lint via pip into user-space - means, the version can be managed by the user per pip
-    pip install --no-deps ansible-lint==${ANSIBLE_LINT_VERSION}
+    pip install --no-deps ansible-lint==${ANSIBLE_LINT_VERSION} &&\
+#
+# Show installed APK packages and their versions (to be copied into docs)
+    echo "----------------------------------------" &&\
+    apk info -v | sort | sed -E 's/-([0-9])/ \1/; s/^/- /' >&2 &&\
+#
+# Show installed pip packages and their versions (to be copied into docs)
+    echo "----------------------------------------" &&\
+    pip list --format freeze | sed -e 's/==/ /; s/^/- /' >&2
 
 ENTRYPOINT ["/silo/entrypoint"]
 

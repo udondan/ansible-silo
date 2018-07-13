@@ -129,25 +129,10 @@ Silo is based on **[Alpine Linux] 3.7** and includes the following APK packages:
 - perl 5.26.2-r1
 - pkgconf 1.3.10-r0
 - popt 1.16-r7
-- py-enum34 1.1.6-r2
 - py-setuptools 33.1.1-r1
-- py2-asn1 0.4.2-r0
-- py2-asn1crypto 0.23.0-r0
-- py2-bcrypt 3.1.4-r0
-- py2-cffi 1.10.0-r0
-- py2-cparser 2.18-r0
-- py2-crypto 2.6.1-r2
-- py2-cryptography 2.0.3-r1
-- py2-idna 2.6-r0
-- py2-ipaddress 1.0.18-r1
-- py2-lxml 4.1.1-r0
 - py2-napalm 2.2.0-r0
-- py2-ncclient 0.5.3-r0
 - py2-netifaces 0.10.5-r3
-- py2-paramiko 2.4.0-r0
 - py2-pip 9.0.1-r1
-- py2-pynacl 1.2.0-r0
-- py2-six 1.11.0-r0
 - python2 2.7.14-r2
 - readline 7.0.003-r0
 - rsync 3.1.3-r0
@@ -162,18 +147,48 @@ Silo is based on **[Alpine Linux] 3.7** and includes the following APK packages:
 
 The following Python modules are installed via pip:
 
+- asn1crypto 0.22.0
+- backports.ssl-match-hostname 3.5.0.1
+- bcrypt 3.1.4
+- cached-property 1.4.3
+- cffi 1.10.0
+- colorama 0.3.9
+- cryptography 2.0.2
 - docker 2.5.1
-- docker-compose 1.15
+- docker-compose 1.15.0
 - docker-py 1.10.6
+- docker-pycreds 0.3.0
+- dockerpty 0.4.1
+- docopt 0.6.2
 - ecdsa 0.13
-- httplib2 0.9.2
-- jinja2 2.8
+- enum34 1.1.6
+- functools32 3.2.3.post2
+- httplib2 0.11.3
+- idna 2.5
+- ipaddress 1.0.18
+- Jinja2 2.8
 - jmespath 0.9.3
-- markupsafe 0.23
+- jsonschema 2.6.0
+- jtextfsm 0.3.1
+- lxml 4.2.3
+- MarkupSafe 1.0
+- ncclient 0.5.3
 - netaddr 0.7.19
-- pexpect 4.2.1
-- ptyprocess 0.5.2
-- pyyaml 3.11
+- paramiko 2.4.1
+- pexpect 4.6.0
+- pip 10.0.1
+- ptyprocess 0.6.0
+- pyasn1 0.4.3
+- pycparser 2.18
+- pycrypto 2.6.1
+- PyNaCl 1.2.1
+- PyYAML 3.12
+- requests 2.11.1
+- setuptools 39.2.0
+- six 1.10.0
+- texttable 0.8.8
+- websocket-client 0.48.0
+- wheel 0.31.1
 
 ## Installation
 
@@ -540,8 +555,13 @@ All files inside `foo` can be modified by you. For instance you **should** defin
 
 ### Why do I always have to enter my SSH key passphrase when Silo starts?
 
-On OS X, forwarding of the SSH authentication socket [currently is not possible](https://github.com/groupon/ansible-silo/issues/2). Therefore Silo cannot use your ssh agent, even though it is forwarded to the container. If you have a password protected SSH key, you need to enter it once after the container is started. Since Silo is not persistent you have to enter it on every Silo run.
+On MacOS, forwarding of the SSH authentication socket [currently is not possible](https://github.com/groupon/ansible-silo/issues/2). Therefore Silo cannot use your ssh agent, even though it is forwarded to the container. If you have a password protected SSH key, you need to enter it once after the container is started. Since Silo is not persistent you have to enter it on every Silo run.
 
+#### Solution
+
+Silo has built-in support for [docker-ssh-agent-forward](https://github.com/uber-common/docker-ssh-agent-forward), also known as *pinata*.
+
+After installation just call `pinata-ssh-forward` once (more specifically, after every reboot) and Ansible Silo will work without aksing for your password.
 
 ## Troubleshooting
 
