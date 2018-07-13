@@ -623,8 +623,8 @@ test_silo_bundle_function() {
 
   # Run an ansible command
   run "$BATS_ANSIBLE_SILO_INSTALL_PATH/ansible" -i "localhost," -c local \
-  debug "${status}" "${output}" "${lines}"
     -m shell -a "whoami" all
+  debug "${status}" "${output}" "${lines}"
   [[ "${status}" -eq 0 ]]
 
   run cat "$BATS_ANSIBLE_SILO_LOGFILE"
