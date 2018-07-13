@@ -16,6 +16,7 @@ Options:
                         change the configured Ansible version
 
 Commands:
+  ansible-config        Calls ansible-config
   ansible-console       Calls ansible-console
   ansible-doc           Calls ansible-doc
   ansible-galaxy        Calls ansible-galaxy
@@ -24,5 +25,3 @@ Commands:
   ansible-playbook      Calls ansible-playbook
   ansible-pull          Calls ansible-pull
   ansible-vault         Calls ansible-vault
-
-ansible-config
